@@ -1,0 +1,144 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loading {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  right: 0;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.7);
+  opacity: 0.8;
+  z-index: 2;
+}
+
+.parallax-container {
+  width: 100%;
+  max-height: 100%;
+}
+
+main.container {
+  margin-bottom: 75px;
+}
+
+.btn {
+  margin: 15px 0;
+}
+
+@media only screen and (max-width: 640px) {
+  .recipe-content {
+    margin-top: -100px;
+  }
+  .button-size {
+    font-size: 8px !important;
+    padding: 0px 0px !important;
+  }
+  .button-size span {
+    padding: 0px 0px !important;
+  }
+  .button-size div {
+    margin-right: 0px !important;
+  }
+}
+p .flow-tex {
+  font-style: italic;
+}
+body {
+  background-color: #e8e8e8;
+}
+.not-found {
+  background-color: white;
+  background-image: url(public/uploads/giphy1.gif);
+  background-position: center;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: -1;
+  opacity: 0.9;
+  font-family: "Press Start 2P", cursive;
+  animation: light 1s steps(1) infinite;
+}
+
+@keyframes light {
+  33% {
+    text-shadow: 0 0 20px #e900fe;
+  }
+  66% {
+    text-shadow: 0 0 20px #6de33c;
+  }
+}
+
+.card-image {
+  height: 45%;
+}
+
+img {
+  object-fit: cover;
+  height: 100%;
+}
+
+.chip {
+  margin-top: 15px;
+}
+
+.btn {
+  margin-right: 15px;
+}
+
+.col.s6 .btn {
+  width: 100%;
+}
+
+.col.s6 button {
+  width: 100%;
+}
+i.icon-grey {
+  color: grey;
+}
+i.icon-red {
+  color: red;
+}
+i.icon-grey:hover {
+  color: black;
+}
+.pre-wrap {
+  white-space: pre-wrap;
+}
