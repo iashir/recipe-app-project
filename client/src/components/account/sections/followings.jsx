@@ -49,7 +49,7 @@ const Followings = (props) => {
         </li>
         {followings
           .reverse()
-          .slice(0, 5)
+          .slice(0, 3)
           .map((following, i) => (
             <li key={following._id} className="collection-item avatar">
               <Link to={("/account/", following.userTo._id)}>

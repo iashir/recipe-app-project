@@ -14,6 +14,7 @@ class EditRecipe extends Component {
     body: "",
     status: "",
     category: "",
+    ingredients: "",
     recipeImageName: "",
     recipeImageLocation: "",
     recipeImage: null,
@@ -42,9 +43,11 @@ class EditRecipe extends Component {
         recipeImageLocation,
         _id,
         category,
+        ingredients,
       } = data;
       this.setState({
         title,
+        ingredients,
         body,
         category,
         recipeImageName,
@@ -80,6 +83,7 @@ class EditRecipe extends Component {
       _id,
       oldRecipeImage,
       category,
+      ingredients,
     } = this.state;
     if (!oldRecipeImage) {
       console.log("WITH IMAGE");
@@ -90,6 +94,7 @@ class EditRecipe extends Component {
       formData.append("category", category);
       formData.append("user", user);
       formData.append("body", body);
+      formData.append("ingredients", ingredients);
       console.log(formData);
 
       await axios
@@ -127,6 +132,7 @@ class EditRecipe extends Component {
         user,
         _id,
         category,
+        ingredients,
       };
       await axios
         .put("/api/recipes/" + _id, obj)
@@ -162,6 +168,13 @@ class EditRecipe extends Component {
         }
         errors.body = "";
         break;
+      case "ingredients":
+        if (Validator.isEmpty(value)) {
+          errors.ingredients = "Ingredients field is required";
+          break;
+        }
+        errors.ingredients = "";
+        break;
       default:
         break;
     }
@@ -176,6 +189,7 @@ class EditRecipe extends Component {
       recipeImageName,
       categories,
       category,
+      ingredients,
     } = this.state;
     return (
       <React.Fragment>
@@ -259,6 +273,23 @@ class EditRecipe extends Component {
                       <label htmlFor="status">
                         Choose status of your recipe
                       </label>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="input-field">
+                      <textarea
+                        value={ingredients}
+                        onChange={this.handleChange}
+                        id="ingredients"
+                        className={classnames("materialize-textarea", {
+                          invalid: errors.ingredients,
+                        })}
+                      ></textarea>
+                      <label className="active" htmlFor="ingredients">
+                        Ingredients
+                      </label>
+                      <span className="red-text">{errors.ingredients}</span>
                     </div>
                   </div>
 

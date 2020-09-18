@@ -48,7 +48,7 @@ const Followers = (props) => {
             Followers {followersNumber}
           </a>
         </li>
-        {followers.slice(0, 5).map((follower) => (
+        {followers.slice(0, 3).map((follower) => (
           <li key={follower._id} className="collection-item avatar">
             <Link to={("/account/", follower.userFrom._id)}>
               <img

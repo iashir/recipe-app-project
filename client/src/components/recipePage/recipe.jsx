@@ -42,15 +42,6 @@ class Recipe extends Component {
       })
       .catch((err) => {
         toast.error("Invalid recipe");
-        // toast.error(`${err.response.data}`, {
-        //   position: "bottom-center",
-        //   autoClose: 5000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        // });
         this.setState({ loading: false });
       });
   };

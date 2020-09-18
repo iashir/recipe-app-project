@@ -73,7 +73,6 @@ router.post("/add", async (req, res) => {
           const imageLocation = req.file.location;
           req.body.recipeImageName = imageName;
           req.body.recipeImageLocation = imageLocation; // Save the file name into database into profile model
-          console.log(req.body);
           Recipe.create(req.body);
           res.status("200").json(req.body.title);
         }
@@ -237,22 +236,21 @@ router.get("/user/:userId", async (req, res) => {
 //@desc Subscription recipes
 //@route POST /recipes/getSubscriptionRecipes
 router.post("/getSubscriptionRecipes", async (req, res) => {
+  console.log("test");
   console.log(req.body);
-  Subscriber.find({ userFrom: req.body.userFrom }).exec(
-    (err, subscriptions) => {
-      let followings = [];
-      subscriptions.map((subscriber, i) => {
-        followings.push(subscriber.userTo);
+  Subscriber.find(req.body).exec((err, subscriptions) => {
+    let followings = [];
+    subscriptions.map((subscriber, i) => {
+      followings.push(subscriber.userTo);
+    });
+    console.log(followings);
+    Recipe.find({ user: { $in: followings } })
+      .populate("user")
+      .populate("category")
+      .exec((err, recipes) => {
+        if (err) return res.status(400).send(err);
+        res.status(200).json({ success: true, recipes });
       });
-      console.log(followings);
-      Recipe.find({ user: { $in: followings } })
-        .populate("user")
-        .populate("category")
-        .exec((err, recipes) => {
-          if (err) return res.status(400).send(err);
-          res.status(200).json({ success: true, recipes });
-        });
-    }
-  );
+  });
 });
 module.exports = router;

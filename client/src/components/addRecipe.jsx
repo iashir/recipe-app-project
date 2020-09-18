@@ -11,6 +11,7 @@ class AddRecipe extends Component {
   state = {
     title: "",
     body: "",
+    ingredients: "",
     category: "",
     status: "",
     user: {},
@@ -47,7 +48,15 @@ class AddRecipe extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ loading: true });
-    const { title, body, status, user, recipeImage, category } = this.state;
+    const {
+      title,
+      body,
+      status,
+      user,
+      recipeImage,
+      category,
+      ingredients,
+    } = this.state;
     if (recipeImage) {
       console.log(this.state);
       let formData = new FormData();
@@ -57,6 +66,7 @@ class AddRecipe extends Component {
       formData.append("category", category);
       formData.append("user", user);
       formData.append("body", body.trim());
+      formData.append("ingredients", ingredients.trim());
       axios
         .post("/api/recipes/add", formData, {
           headers: {
@@ -104,6 +114,13 @@ class AddRecipe extends Component {
         }
         errors.body = "";
         break;
+      case "ingredients":
+        if (Validator.isEmpty(value)) {
+          errors.ingredients = "Ingredients field is required";
+          break;
+        }
+        errors.ingredients = "";
+        break;
       default:
         break;
     }
@@ -117,6 +134,7 @@ class AddRecipe extends Component {
       loading,
       categories,
       category,
+      ingredients,
     } = this.state;
 
     return (
@@ -208,6 +226,22 @@ class AddRecipe extends Component {
                         Choose status of your recipe
                       </label>
                       <span className="red-text">{errors.status}</span>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="input-field">
+                      <textarea
+                        value={ingredients}
+                        onChange={this.handleChange}
+                        id="ingredients"
+                        name="ingredients"
+                        className={classnames("materialize-textarea", {
+                          invalid: errors.ingredients,
+                        })}
+                      ></textarea>
+                      <label htmlFor="ingredients">ingredients</label>
+                      <span className="red-text">{errors.ingredients}</span>
                     </div>
                   </div>
 

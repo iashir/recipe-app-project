@@ -12,7 +12,7 @@ class Category extends Component {
     e.preventDefault();
     this.setState({ loading: true });
     axios
-      .post("/api/admin/categories", { type: this.state.type })
+      .post("/api/categories", { type: this.state.type })
       .then(({ data }) => {
         toast.success(`${data}`, {
           position: "bottom-center",

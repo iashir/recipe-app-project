@@ -57,6 +57,18 @@ const RecipeInfo = ({ recipe, user }) => {
                   <h3>{recipe.title}</h3>
                 </span>
                 <p>{moment(recipe.createdAt).format("LLLL")}</p>
+                <br />
+                <div class="divider"></div>
+                <span className="card-title">
+                  <h3>Ingredients</h3>
+                </span>
+                <p className="pre-wrap" style={{ marginBottom: "16px" }}>
+                  {recipe.ingredients}
+                </p>
+                <div class="divider"></div>
+                <span className="card-title">
+                  <h3>Instructions</h3>
+                </span>
                 <p className="pre-wrap" style={{ marginBottom: "16px" }}>
                   {recipe.body}
                 </p>
@@ -94,6 +106,18 @@ const RecipeInfo = ({ recipe, user }) => {
                     <h3>{recipe.title}</h3>
                   </span>
                   <p>{moment(recipe.createdAt).format("LLLL")}</p>
+                  <br />
+                  <div class="divider"></div>
+                  <span className="card-title">
+                    <h3>Ingredients</h3>
+                  </span>
+                  <p className="pre-wrap" style={{ marginBottom: "16px" }}>
+                    {recipe.ingredients}
+                  </p>
+                  <div class="divider"></div>
+                  <span className="card-title">
+                    <h3>Instructions</h3>
+                  </span>
                   <p className="pre-wrap" style={{ marginBottom: "16px" }}>
                     {recipe.body}
                   </p>

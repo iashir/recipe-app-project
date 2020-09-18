@@ -21,11 +21,18 @@ const RecipeCard = ({ recipes, imageProf, recipesLength }) => {
                   src={data.recipeImageLocation}
                   alt={data.recipeImageName}
                 ></img>
+                {data.status === "private" && (
+                  <span
+                    className="card-title card-panel red"
+                    style={{ padding: "3px", fontSize: "1rem" }}
+                  >
+                    Subscribers only
+                  </span>
+                )}
               </div>
               <div className="card-content center-align">
-                <span className="card-title ">{data.title}</span>
+                <span className="card-title truncate">{data.title}</span>
                 <div className="flow-tex">Category: {data.category.type}</div>
-
                 <div className="chip">
                   <img
                     src={data.user.image === "" ? imageProf : data.user.image}
@@ -50,7 +57,7 @@ const RecipeCard = ({ recipes, imageProf, recipesLength }) => {
                     Read more
                   </Link>
                   <div style={{ fontSize: "0.7rem", fontStyle: "italic" }}>
-                    Posted: {moment(data.createdAt).startOf("hour").fromNow()}
+                    {moment(data.createdAt).format("LLLL")}
                   </div>
                 </div>
               </div>

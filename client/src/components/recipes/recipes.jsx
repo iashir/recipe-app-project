@@ -43,7 +43,7 @@ class Recipes extends Component {
       let { _id } = JSON.parse(localStorage.user);
       this.setState({ userId: _id });
     }
-    if (window.location.pathname === "/recipes/subscriptions") {
+    if (window.location.pathname === "/subscriptions") {
       let { _id } = JSON.parse(localStorage.user);
       axios
         .post("/api/recipes/getSubscriptionRecipes", {
@@ -69,7 +69,7 @@ class Recipes extends Component {
   componentDidUpdate = (prevProps) => {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.setState({ loading: true });
-      if (window.location.pathname === "/recipes/subscriptions") {
+      if (window.location.pathname === "/subscriptions") {
         let { _id } = JSON.parse(localStorage.user);
         axios
           .post("/api/recipes/getSubscriptionRecipes", {
