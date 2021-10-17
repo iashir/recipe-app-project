@@ -86,7 +86,7 @@ body {
 }
 .not-found {
   background-color: white;
-  background-image: url(public/uploads/giphy1.gif);
+  background-image: url();
   background-position: center;
   position: fixed;
   height: 100%;

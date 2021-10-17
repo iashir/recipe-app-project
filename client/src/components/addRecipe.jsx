@@ -48,15 +48,8 @@ class AddRecipe extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ loading: true });
-    const {
-      title,
-      body,
-      status,
-      user,
-      recipeImage,
-      category,
-      ingredients,
-    } = this.state;
+    const { title, body, status, user, recipeImage, category, ingredients } =
+      this.state;
     if (recipeImage) {
       console.log(this.state);
       let formData = new FormData();

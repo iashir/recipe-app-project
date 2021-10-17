@@ -9,15 +9,15 @@ const multerS3 = require("multer-s3");
 const path = require("path");
 
 const s3 = new aws.S3({
-  accessKeyId: "AKIAVFAC4BW6UCTKPB4K",
-  secretAccessKey: "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",
-  Bucket: "ilyasrecipeappbucket",
+  accessKeyId: "AKIA4ZFUGEIKADSMQ7GK",
+  secretAccessKey: "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",
+  Bucket: "work-project-images",
 });
 
 const recipeImageUpload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: "ilyasrecipeappbucket",
+    bucket: "work-project-images",
     acl: "public-read",
     key: function (req, file, cb) {
       cb(
@@ -73,6 +73,10 @@ router.post("/add", async (req, res) => {
           const imageLocation = req.file.location;
           req.body.recipeImageName = imageName;
           req.body.recipeImageLocation = imageLocation; // Save the file name into database into profile model
+          console.log(req.file);
+          console.log("test");
+
+          console.log(req.body);
           Recipe.create(req.body);
           res.status("200").json(req.body.title);
         }
