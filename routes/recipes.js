@@ -4,36 +4,17 @@ const Recipe = require("../models/Recipe");
 const Subscriber = require("../models/Subscribe");
 const multer = require("multer");
 const { recipeValidator } = require("../middleware/validator");
-const aws = require("aws-sdk");
-const multerS3 = require("multer-s3");
 const path = require("path");
+const S3 = require("aws-sdk/clients/s3");
+const multerS3 = require("multer-s3");
 
-const s3 = new aws.S3({
-  accessKeyId: "AKIA4ZFUGEIKADSMQ7GK",
-  secretAccessKey: "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",
-  Bucket: "work-project-images",
+const s3 = new S3({
+  region: "us-east-1",
+  accessKeyId: "AKIA4ZFUGEIKJRB347FL",
+  secretAccessKey: "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",
 });
 
-const recipeImageUpload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: "work-project-images",
-    acl: "public-read",
-    key: function (req, file, cb) {
-      cb(
-        null,
-        path.basename(file.originalname, path.extname(file.originalname)) +
-          "-" +
-          Date.now() +
-          path.extname(file.originalname)
-      );
-    },
-  }),
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
-  },
-}).single("recipeImage");
-
+//
 function checkFileType(file, cb) {
   // Allowed ext
   const filetypes = /jpeg|jpg|png|gif/;
@@ -48,6 +29,22 @@ function checkFileType(file, cb) {
   }
 }
 
+var upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: "work-project-images",
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+      cb(null, Date.now().toString());
+    },
+  }),
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  },
+}).single("recipeImage");
+
 //@desc Show add page
 //@route GET /recipes/add
 router.get("/add", (req, res) => {});
@@ -56,7 +53,9 @@ router.get("/add", (req, res) => {});
 //@route POST /recipes/add
 router.post("/add", async (req, res) => {
   try {
-    await recipeImageUpload(req, res, (error) => {
+    await upload(req, res, (error) => {
+      console.log(req.file);
+      console.log(req.body);
       if (error) {
         res.status("400").json({ recipeImage: error });
       } else if (error instanceof multer.MulterError) {
@@ -73,9 +72,6 @@ router.post("/add", async (req, res) => {
           const imageLocation = req.file.location;
           req.body.recipeImageName = imageName;
           req.body.recipeImageLocation = imageLocation; // Save the file name into database into profile model
-          console.log(req.file);
-          console.log("test");
-
           console.log(req.body);
           Recipe.create(req.body);
           res.status("200").json(req.body.title);

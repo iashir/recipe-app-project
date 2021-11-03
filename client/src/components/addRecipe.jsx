@@ -53,13 +53,14 @@ class AddRecipe extends Component {
     if (recipeImage) {
       console.log(this.state);
       let formData = new FormData();
-      formData.append("recipeImage", recipeImage, recipeImage.name);
+      formData.append("recipeImage", recipeImage);
       formData.append("title", title);
       formData.append("status", status);
       formData.append("category", category);
       formData.append("user", user);
       formData.append("body", body.trim());
       formData.append("ingredients", ingredients.trim());
+      console.log(formData);
       axios
         .post("/api/recipes/add", formData, {
           headers: {

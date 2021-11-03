@@ -16,7 +16,7 @@ const RecipeCard = ({ recipes, imageProf, recipesLength }) => {
         {recipes.map((data) => (
           <div className="col s12 l6" data-aos="fade-up" key={data._id}>
             <div className="card large hoverable">
-              <div className="card-image-top">
+              <div className="card-image">
                 <img
                   src={data.recipeImageLocation}
                   alt={data.recipeImageName}
